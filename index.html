@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html dir="rtl" lang="ar">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FR HUB - مركز النخبة</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { 
+            background: #000; 
+            color: #fff; 
+            font-family: 'Segoe UI', Tahoma, sans-serif;
+            overflow-x: hidden;
+        }
+        .header {
+            background: linear-gradient(135deg, #8b0000, #000);
+            padding: 30px 20px;
+            text-align: center;
+            border-bottom: 3px solid #ff0000;
+            box-shadow: 0 0 30px rgba(255,0,0,0.5);
+        }
+        .logo {
+            font-size: 3em;
+            font-weight: bold;
+            color: #ff0000;
+            text-shadow: 0 0 20px #ff0000;
+            letter-spacing: 3px;
+        }
+        .disclaimer {
+            background: #1a0000;
+            border: 2px solid #ff0000;
+            color: #ff6666;
+            padding: 20px;
+            margin: 20px;
+            border-radius: 10px;
+            font-size: 0.9em;
+            text-align: center;
+        }
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 15px;
+            padding: 20px;
+        }
+        .card {
+            background: linear-gradient(145deg, #1a1a1a, #0d0d0d);
+            border: 1px solid #333;
+            padding: 25px;
+            border-radius: 15px;
+            text-align: center;
+            transition: all 0.3s;
+            cursor: pointer;
+        }
+        .card:hover {
+            border-color: #ff0000;
+            transform: translateY(-5px);
+            box-shadow: 0 10px 30px rgba(255,0,0,0.3);
+        }
+        .card-icon { font-size: 2.5em; margin-bottom: 10px; }
+        .card h3 { color: #ff0000; margin-bottom: 10px; font-size: 1.2em; }
+        .card p { color: #888; font-size: 0.9em; }
+        .footer {
+            text-align: center;
+            padding: 20px;
+            color: #ff0000;
+            font-size: 0.8em;
+            border-top: 1px solid #333;
+            margin-top: 20px;
+        }
+        .ai-float {
+            position: fixed;
+            bottom: 30px;
+            left: 30px;
+            width: 70px;
+            height: 70px;
+            background: #ff0000;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2em;
+            cursor: pointer;
+            box-shadow: 0 0 30px rgba(255,0,0,0.6);
+            animation: pulse 2s infinite;
+        }
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.1); }
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <div class="logo">⚡ FR HUB ⚡</div>
+        <p style="color: #ff6666; margin-top: 10px;">مركز تدريب النخبة للاختراق والتطوير</p>
+    </div>
+
+    <div class="disclaimer">
+        ⚠️ إخلاء مسؤولية: جميع المحتويات للأغراض التعليمية فقط. 
+        FR HUB غير مسؤولة عن أي استخدام غير قانوني.
+    </div>
+
+    <div class="grid">
+        <div class="card" onclick="location.href='hacking.html'">
+            <div class="card-icon">🎯</div>
+            <h3>أساسيات الاختراق</h3>
+            <p>بداية رحلتك في عالم الهكر والأنظمة المتقدمة</p>
+        </div>
+
+        <div class="card" onclick="location.href='lua.html'">
+            <div class="card-icon">🎮</div>
+            <h3>روبلوكس - Lua</h3>
+            <p>صناعة السكربتات، الغش، وتصميم الواجهات</p>
+        </div>
+
+        <div class="card" onclick="location.href='ai.html'">
+            <div class="card-icon">🤖</div>
+            <h3>المساعد الذكي</h3>
+            <p>برمجة بأي لغة: Lua, C++, C#, Java, HTML</p>
+        </div>
+
+        <div class="card" onclick="location.href='tools.html'">
+            <div class="card-icon">⚔️</div>
+            <h3>الأدوات المتقدمة</h3>
+            <p>أدوات مخصصة للاختراق والتلاعب</p>
+        </div>
+    </div>
+
+    <div class="ai-float" onclick="location.href='ai.html'">🤖</div>
+
+    <div class="footer">
+        FR HUB © 2025 - جميع الحقوق محفوظة<br>
+        تطوير: Lord Zayro | النخبة فقط
+    </div>
+</body>
+</html>
