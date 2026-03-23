@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html dir="rtl" lang="ar">
+<head>
+    <meta charset="UTF-8">
+    <title>FR HUB - تعليم Lua</title>
+    <style>
+        body { background: #000; color: #fff; font-family: Arial; padding: 20px; }
+        .back { color: #ff0000; text-decoration: none; font-size: 1.2em; }
+        h1 { color: #ff0000; text-align: center; border-bottom: 2px solid #ff0000; padding-bottom: 20px; }
+        .lesson { background: #111; border: 1px solid #333; margin: 20px 0; padding: 20px; border-radius: 10px; }
+        .lesson h2 { color: #ff4444; margin-bottom: 15px; }
+        pre { background: #1a1a1a; padding: 15px; border-left: 4px solid #ff0000; overflow-x: auto; color: #0f0; direction: ltr; text-align: left; }
+        .warning { background: #330000; border: 1px solid #ff0000; padding: 15px; margin: 20px 0; border-radius: 5px; color: #ff6666; }
+    </style>
+</head>
+<body>
+    <a href="index.html" class="back">← رجوع</a>
+    <h1>🔥 تعليم Lua للروبلوكس - FR HUB</h1>
+
+    <div class="warning">
+        ⚠️ التحذير: استخدام هذه الأساليب قد يؤدي إلى حظر حسابك نهائياً. للتعلم فقط.
+    </div>
+
+    <div class="lesson">
+        <h2>الدرس الأول: بيئة التنفيذ</h2>
+        <pre>-- طريقة تنفيذ الكود بأمان
+local function RunCode(source)
+    local success, result = pcall(function()
+        return loadstring(source)()
+    end)
+    return success and result or "خطأ في التنفيذ"
+end
+
+-- مثال على استخدام getrawmetatable
+local mt = getrawmetatable(game)
+setreadonly(mt, false)</pre>
+    </div>
+
+    <div class="lesson">
+        <h2>الدرس الثاني: تصميم واجهة الغش</h2>
+        <pre>-- إنشاء واجهة احترافية
+local Library = loadstring(game:HttpGet("https://pastebin.com/..."))()
+
+local Window = Library:CreateWindow("FR HUB", "روبلوكس")
+local Tab = Window:CreateTab("الغش التلقائي")
+local Section = Tab:CreateSection("زر السرعة")
+
+Section:CreateToggle("تفعيل السرعة", false, function(Value)
+    game.Players.LocalPlayer.Character.Humanoid.WalkSpeed = Value and 100 or 16
+end)</pre>
+    </div>
+
+    <div class="lesson">
+        <h2>الدرس الثالث: التلاعب بالأحداث البعيدة</h2>
+        <pre>-- التعامل مع Remote Events
+local ReplicatedStorage = game:GetService("ReplicatedStorage")
+local Remote = ReplicatedStorage:WaitForChild("DamageEvent")
+
+-- تتبع الاستدعاءات
+local oldNamecall
+oldNamecall = hookmetamethod(game, "__namecall", function(self, ...)
+    local method = getnamecallmethod()
+    if method == "FireServer" and self == Remote then
+        print("تم اعتراض استدعاء!")
+        return oldNamecall(self, ...)
+    end
+    return oldNamecall(self, ...)
+end)</pre>
+    </div>
+
+    <div class="lesson">
+        <h2>الدرس الرابع: حقن DLL متقدم</h2>
+        <pre>-- التحقق من وجود الـ Executor
+if syn then
+    print("Synapse X مكتشف")
+elseif getexecutorname then
+    print("المستخدم: " .. getexecutorname())
+else
+    print("Executor عادي")
+end
+
+-- تجاوز الكشف
+hookfunction(game:GetService("Players").LocalPlayer.Kick, function() end)</pre>
+    </div>
+
+    <div style="text-align: center; color: #ff0000; margin-top: 40px; padding: 20px; border-top: 2px solid #ff0000;">
+        FR HUB © 2025 - النخبة فقط
+    </div>
+</body>
+</html>
